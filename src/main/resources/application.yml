@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: gateway
+
+server:
+  port: 4000
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+
+zuul:
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 20000
+    socket-timeout-millis: 20000
+  routes:
+    department-service:
+      path: /department/**
+      serviceId: department-service
+      stripPrefix: false
+      sensitiveHeaders:
+
+    employee-service:
+      path: /employee/**
+      serviceId: employee-service
+      stripPrefix: false
+      sensitiveHeaders:
